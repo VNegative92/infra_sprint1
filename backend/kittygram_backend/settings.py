@@ -1,15 +1,21 @@
 import os
-from dotenv import load_dotenv
-load_dotenv()
+import sys
 from pathlib import Path
+
+# Загружаем .env только если файл существует
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # В тестовом окружении dotenv может отсутствовать
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-key-for-tests')
 
-import os; DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ['hworkpract.zapto.org', '158.160.253.163', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
