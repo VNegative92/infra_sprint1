@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-cg6*%6d51ef8f#4!r3*$vmxm4)abgjw8mo!4y-q*uq1!4$-89$
 
 import os; DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hworkpract.zapto.org', '158.160.253.163', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -55,8 +55,12 @@ WSGI_APPLICATION = 'kittygram_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.getenv('DB_NAME', 'kittygram'),
+        'USER': os.getenv('DB_USER', 'kittygram_user'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'kittygram_password'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
@@ -93,7 +97,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = '/var/www/kittygram/media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -111,4 +115,4 @@ REST_FRAMEWORK = {
 
 }
 import os
-STATIC_ROOT = os.getenv("STATIC_ROOT", "/app/static")
+STATIC_ROOT = '/var/www/kittygram/static'
