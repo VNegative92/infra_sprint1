@@ -1,9 +1,11 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-cg6*%6d51ef8f#4!r3*$vmxm4)abgjw8mo!4y-q*uq1!4$-89$'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 import os; DEBUG = os.getenv("DEBUG", "False") == "True"
 
@@ -20,6 +22,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'djoser',
     'cats.apps.CatsConfig',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -112,3 +115,11 @@ REST_FRAMEWORK = {
 }
 import os
 STATIC_ROOT = '/var/www/kittygram/static'
+
+DJOSER = {
+    'LOGIN_FIELD': 'username',
+    'SERIALIZERS': {
+        'user_create': 'djoser.serializers.UserCreateSerializer',
+        'user': 'djoser.serializers.UserSerializer',
+    }
+}
