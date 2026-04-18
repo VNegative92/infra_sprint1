@@ -7,8 +7,10 @@ services:
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - .env.db
+    environment:
+      - POSTGRES_DB=kittygram
+      - POSTGRES_USER=kittygram_user
+      - POSTGRES_PASSWORD=kittygram_password
     networks:
       - kittygram_network
 
@@ -16,26 +18,33 @@ services:
     build: ../backend
     container_name: kittygram_backend
     restart: always
+    ports:
+      - "8000:8000"
     volumes:
       - ../backend:/app
       - static_volume:/app/static
       - media_volume:/app/media
     depends_on:
       - db
-    env_file:
-      - .env.backend
+    environment:
+      - SECRET_KEY=ваш-секретный-ключ-придумайте-сложный
+      - DEBUG=False
+      - ALLOWED_HOSTS=158.160.253.163 localhost 127.0.0.1
+      - DB_ENGINE=django.db.backends.postgresql
+      - DB_NAME=kittygram
+      - DB_USER=kittygram_user
+      - DB_PASSWORD=kittygram_password
+      - DB_HOST=db
+      - DB_PORT=5432
+      - STATIC_ROOT=/app/static
+      - MEDIA_ROOT=/app/media
     networks:
       - kittygram_network
-    ports:
-      - "8000:8000"
 
   frontend:
     build: ../frontend
     container_name: kittygram_frontend
     restart: always
-    volumes:
-      - ../frontend:/app
-      - frontend_build:/app/build
     networks:
       - kittygram_network
 
@@ -59,7 +68,6 @@ volumes:
   postgres_data:
   static_volume:
   media_volume:
-  frontend_build:
 
 networks:
   kittygram_network:
