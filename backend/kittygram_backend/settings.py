@@ -110,3 +110,5 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
 
 }
+import os
+STATIC_ROOT = os.getenv("STATIC_ROOT", "/app/static")
