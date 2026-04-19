@@ -2,4 +2,4 @@ IP: 158.160.253.163;
 name_taski: https://hworkpract.zapto.org/taski/;
 name_kittygram: https://hworkpract.zapto.org;
 login: admin1;
-password: admin1;
+password: provi123;
