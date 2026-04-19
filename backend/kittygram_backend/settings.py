@@ -128,3 +128,18 @@ DJOSER = {
         'user': 'djoser.serializers.UserSerializer',
     }
 }
+
+# CSRF settings for API
+CSRF_TRUSTED_ORIGINS = [
+    'https://hworkpract.zapto.org',
+    'http://hworkpract.zapto.org',
+    'https://158.160.253.163',
+    'http://158.160.253.163',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'https://hworkpract.zapto.org',
+    'http://hworkpract.zapto.org',
+]
+
+CORS_ALLOW_CREDENTIALS = True
